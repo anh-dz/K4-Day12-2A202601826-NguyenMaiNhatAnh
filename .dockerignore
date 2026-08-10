@@ -4,3 +4,8 @@
 
 .git
 .gitignore
+.env
+__pycache__
+.venv
+*.pyc
+screenshots/
