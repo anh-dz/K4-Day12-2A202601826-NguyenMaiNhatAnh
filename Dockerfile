@@ -65,5 +65,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
     CMD python -c "import os, urllib.request; port = os.getenv('PORT', '8000'); urllib.request.urlopen(f'http://127.0.0.1:{port}/healthz', timeout=3)" || exit 1
 
-# Sử dụng shell form để expand biến $PORT khi chạy trên cloud
-CMD exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+# Sử dụng lệnh python để chạy uvicorn từ bên trong app.main, pydantic-settings sẽ tự động đọc biến môi trường PORT
+CMD ["python", "-m", "app.main"]
