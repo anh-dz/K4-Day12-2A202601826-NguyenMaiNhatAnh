@@ -16,8 +16,8 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | http://localhost:8000 |
-| Platform | Local Docker Compose |
+| Public URL | https://day12-chat-production-f2f6.up.railway.app |
+| Platform | Railway |
 | Ngày deploy | Hôm nay |
 
 ## Biến Môi Trường Đã Set Trên Cloud
@@ -28,7 +28,7 @@ Ghi tên biến và **nguồn giá trị**, không ghi giá trị:
 |------|--------|---------|
 | `PORT` | ✅ | platform tự gán |
 | `API_TOKEN` | ✅ | đặt trong dashboard, không nằm trong repo |
-| `REDIS_URL` | ✅ | Local Redis container |
+| `REDIS_URL` | ✅ | Railway Redis Database |
 | `BUCKET_CAPACITY` | ✅ | 10 |
 | `REFILL_PER_MINUTE` | ✅ | 10 |
 | `DAILY_BUDGET_USD` | ✅ | 1.0 |
@@ -71,10 +71,48 @@ done; echo
 
 Dán output của các lệnh trên vào đây:
 
-```
-Thành công ở máy local (Local Fallback)
-```
+```text
+Output of 5 test commands:
+---
+# 1. Liveness
+HTTP/2 200 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:52 GMT
+server: railway-hikari
 
+{"status":"ok","service":"day12-chat-service","version":"1.0.0"}
+
+
+# 2. Readiness
+HTTP/2 200 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:52 GMT
+server: railway-hikari
+
+{"status":"ready","redis":true}
+
+
+# 3. Không có token
+HTTP/2 401 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:53 GMT
+server: railway-hikari
+www-authenticate: Bearer
+
+{"detail":"invalid or missing bearer token"}
+
+
+# 4. Có token
+HTTP/2 200 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:53 GMT
+server: railway-hikari
+
+{"reply":"Câu hỏi hay. Deploy là gì thường được giải quyết bằng cách chuẩn hóa môi trường chạy: cùng một image chạy giống nhau ở laptop và trên cloud.","client_id":"sv-test","turns_before":0,"usd_cost":2.145e-05,"usage":{"prompt":3,"completion":35}}
+
+# 5. Rate limit
+200 200 200 200 200 200 200 200 200 429 429 429 429 429 429
+```
 ## Ảnh Chụp Màn Hình
 
 Đặt ảnh trong thư mục `screenshots/`:
@@ -95,7 +133,4 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
    `http://localhost:8000`
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
-```
-Tài khoản Railway bị lỗi: "Your workspace has been restricted. Please attach a payment method or contact support to resolve this." 
-Do đó không thể deploy được lên cloud. Tiến hành dùng phương án dự phòng (LOCAL_FALLBACK=true).
-```
+Thành công trên Railway, lỗi ban đầu đã được fix bằng cách bỏ startCommand trong railway.toml và dùng python -m app.main trong Dockerfile.
