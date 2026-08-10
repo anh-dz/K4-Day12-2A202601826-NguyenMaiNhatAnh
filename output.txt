@@ -1,0 +1,66 @@
+Output of 5 test commands:
+---
+# 1. Liveness
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    64  100    64    0     0    143      0 --:--:-- --:--:-- --:--:--   143
+HTTP/2 200 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:52 GMT
+server: railway-hikari
+x-railway-request-id: NZKUT3W_SD2ozwNUWUN5dQ
+content-length: 64
+x-hikari-trace: sin1.d1nj
+x-railway-edge: sin1
+
+{"status":"ok","service":"day12-chat-service","version":"1.0.0"}
+
+# 2. Readiness
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    31  100    31    0     0     76      0 --:--:-- --:--:-- --:--:--    76
+HTTP/2 200 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:52 GMT
+server: railway-hikari
+x-railway-request-id: 7u0Rud6wRl2njEOd9fVATg
+content-length: 31
+x-hikari-trace: sin1.hs0s
+x-railway-edge: sin1
+
+{"status":"ready","redis":true}
+
+# 3. Không có token
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    63  100    44  100    19    113     49 --:--:-- --:--:-- --:--:--   162
+HTTP/2 401 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:53 GMT
+server: railway-hikari
+www-authenticate: Bearer
+x-railway-request-id: OPkB2R8hQS233_kmY53eZw
+content-length: 44
+x-hikari-trace: sin1.nzn2
+x-railway-edge: sin1
+
+{"detail":"invalid or missing bearer token"}
+
+# 4. Có token
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   317  100   288  100    29    754     75 --:--:-- --:--:-- --:--:--   829100   317  100   288  100    29    753     75 --:--:-- --:--:-- --:--:--   829
+HTTP/2 200 
+content-type: application/json
+date: Mon, 10 Aug 2026 16:13:53 GMT
+server: railway-hikari
+x-railway-request-id: laz8gDFnRImXS0xkWUN5dQ
+content-length: 288
+x-hikari-trace: sin1.nzn2
+x-railway-edge: sin1
+vary: accept-encoding
+
+{"reply":"Câu hỏi hay. Deploy là gì thường được giải quyết bằng cách chuẩn hóa môi trường chạy: cùng một image chạy giống nhau ở laptop và trên cloud.","client_id":"sv-test","turns_before":0,"usd_cost":2.145e-05,"usage":{"prompt":3,"completion":35}}
+
+# 5. Rate limit
+200 200 200 200 200 200 200 200 200 429 429 429 429 429 429 
