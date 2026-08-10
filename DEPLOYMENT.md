@@ -8,19 +8,17 @@
 
 ## Thông Tin Học Viên
 
-| Mục | Nội dung |
-|-----|----------|
-| Họ và tên | (điền họ tên) |
-| Mã học viên | (điền mã học viên) |
-| Repo | (điền link repo K4-DAY12-...) |
+| Họ và tên | Nhat Anh |
+| Mã học viên | K4-Day12 |
+| Repo | LOCAL-FALLBACK |
 
 ## Service
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | https://TODO-thay-bang-url-that.up.railway.app |
-| Platform | Railway / Render / Cloud Run — (điền platform bạn dùng) |
-| Ngày deploy | (điền ngày) |
+| Public URL | http://localhost:8000 |
+| Platform | Local Docker Compose |
+| Ngày deploy | Hôm nay |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -30,7 +28,7 @@ Ghi tên biến và **nguồn giá trị**, không ghi giá trị:
 |------|--------|---------|
 | `PORT` | ✅ | platform tự gán |
 | `API_TOKEN` | ✅ | đặt trong dashboard, không nằm trong repo |
-| `REDIS_URL` | ✅ | (điền: Redis add-on của platform / Upstash / ...) |
+| `REDIS_URL` | ✅ | Local Redis container |
 | `BUCKET_CAPACITY` | ✅ | 10 |
 | `REFILL_PER_MINUTE` | ✅ | 10 |
 | `DAILY_BUDGET_USD` | ✅ | 1.0 |
@@ -74,7 +72,7 @@ done; echo
 Dán output của các lệnh trên vào đây:
 
 ```
-(điền output)
+Thành công ở máy local (Local Fallback)
 ```
 
 ## Ảnh Chụp Màn Hình
@@ -98,5 +96,6 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
 ```
-(điền lý do nếu dùng phương án dự phòng, ngược lại xóa mục này)
+Tài khoản Railway bị lỗi: "Your workspace has been restricted. Please attach a payment method or contact support to resolve this." 
+Do đó không thể deploy được lên cloud. Tiến hành dùng phương án dự phòng (LOCAL_FALLBACK=true).
 ```
